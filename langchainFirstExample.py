@@ -16,8 +16,28 @@ def invoke_model():
     print(response)
 
 def fist_chain():
-    
+  template = ChatPromptTemplate.from_messages(
+      [
+        ("system",
+         "Write a short description for the product provided"
+        ),
+        (
+          "human",
+          "{product_name}"
+      ]
+
+  )
+
+  chain = template.pipe(model)
+
+  response = chain.invoke({
+      "product_name": "bicycle"
+  })
+
+print(response)
 
 invoke_model()
+
+first_chain()
 
 
