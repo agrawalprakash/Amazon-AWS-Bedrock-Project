@@ -28,3 +28,42 @@ def getEmbedding(input: str):
      response_body = json.loads(response.get('body').read())   
      return response_body.get('embedding')
 
+     factsWithEmbeddings = []
+
+     for fact in facts:
+       factsWithEmbeddings.append({
+          'text' : fact,
+        'embedding' : getEmbedding(fact)
+       })
+
+     newFactEmbedding = getEmbedding(newFact)
+
+     similarities = []
+
+     for fact in factWithEmbeddings:
+       similarities.append({
+         'text': fact['text'],
+         'similarity': 
+                 cosineSimilarity(fact['embedding'],
+                                  newFactEmbedding
+                                  )
+       })
+
+     print("Similarities for the fact: '{newFact}' with:")
+
+     similarities.sort(
+                        key = lambda x: x['similarity'],
+                        reverse = True
+     )
+
+     for similarity in similarities:
+       print(
+         "  '{similarity['text']}': 
+         {similarity['similarity']: .2f}")
+         
+
+
+      
+    
+
+       
